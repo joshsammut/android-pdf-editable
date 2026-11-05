@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PDF Editable</string>
+
+    <string name="action_open">Open PDF</string>
+    <string name="action_save">Save</string>
+    <string name="action_save_as">Save as…</string>
+    <string name="action_undo">Undo</string>
+    <string name="action_zoom_in">Zoom in</string>
+    <string name="action_zoom_out">Zoom out</string>
+    <string name="action_more">More</string>
+
+    <string name="tool_view">View</string>
+    <string name="tool_text">Text</string>
+    <string name="tool_signature">Sign</string>
+
+    <string name="hint_no_document">Open a PDF to view it, add text, and sign it.</string>
+    <string name="hint_text_mode">Tap anywhere on a page to add text.</string>
+    <string name="hint_signature_mode">Tap on a page to place your signature.</string>
+    <string name="hint_view_mode">Pinch to zoom. Tap an item to select it, drag to move it.</string>
+
+    <string name="dialog_text_title">Add text</string>
+    <string name="dialog_text_edit_title">Edit text</string>
+    <string name="dialog_text_label">Text</string>
+    <string name="dialog_text_size">Size: %1$d pt</string>
+    <string name="dialog_signature_title">Draw your signature</string>
+    <string name="dialog_signature_reuse">Use previous</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_clear">Clear</string>
+    <string name="dialog_done">Done</string>
+
+    <string name="selection_edit">Edit</string>
+    <string name="selection_smaller">Smaller</string>
+    <string name="selection_bigger">Bigger</string>
+    <string name="selection_delete">Delete</string>
+    <string name="selection_done">Done</string>
+
+    <string name="discard_title">Discard changes?</string>
+    <string name="discard_message">You have unsaved changes. Leave without saving?</string>
+    <string name="discard_confirm">Discard</string>
+
+    <string name="page_indicator">Page %1$d of %2$d</string>
+    <string name="status_loading">Loading…</string>
+    <string name="status_saving">Saving…</string>
+    <string name="status_saved">Saved</string>
+    <string name="status_unsaved">Unsaved changes</string>
+
+    <string name="error_open">Could not open this PDF. %1$s</string>
+    <string name="error_protected">This PDF is password protected.</string>
+    <string name="error_save">Could not save the PDF. %1$s</string>
+    <string name="error_not_writable">The original file is read-only. Use Save as… instead.</string>
+</resources>
