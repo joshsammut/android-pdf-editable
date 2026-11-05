@@ -59,6 +59,26 @@ The debug APK ends up in `app/build/outputs/apk/debug/`. Install it with:
 
 Minimum Android version is 8.0 (API 26).
 
+### Getting an APK from GitHub Actions
+
+Every push runs the **Build APK** workflow (`.github/workflows/build.yml`), which runs the unit
+tests, builds a debug APK and uploads it as an artifact. You can also start it by hand from the
+Actions tab with **Run workflow**.
+
+To install it on a phone:
+
+1. On GitHub, open **Actions**, pick the latest green **Build APK** run, and download the
+   `pdf-editable-debug-apk` artifact under **Artifacts**. You must be signed in to GitHub.
+2. GitHub always delivers artifacts as a `.zip`. Unzip it to get `pdf-editable-<commit>.apk`.
+   On a phone, the Files app can extract it: tap the zip, then **Extract**.
+3. Tap the `.apk`. Android asks you to allow installs from that app (Files or Chrome) the first
+   time; allow it, go back, and tap **Install**.
+
+The debug build is signed with a debug key, so Play Protect may warn that the app is from an
+unknown developer. Choose **Install anyway**. The debug key lives in `app/debug.keystore` and
+uses Android's standard public debug passwords, so it is not a secret. Because every build uses
+the same key, a newer APK installs straight over an older one and keeps your data.
+
 ## Dependencies
 
 - Jetpack Compose (Material 3) for the UI.
