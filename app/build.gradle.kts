@@ -6,7 +6,8 @@ plugins {
 
 android {
     namespace = "com.pdfeditable"
-    compileSdk = 34
+    // androidx.core 1.15 requires compiling against API 35. targetSdk stays at 34.
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.pdfeditable"
@@ -86,4 +87,30 @@ dependencies {
     testImplementation(libs.junit)
     // Reference PDFBox (pure JVM) reads the exported files back in unit tests.
     testImplementation(libs.apache.pdfbox)
+}
+
+// PdfBox-Android ships its font metrics as Android assets. On a device they are read through
+// PDFBoxResourceLoader; in JVM unit tests it falls back to the classpath, so extract the
+// assets from the AAR and put them there.
+val pdfboxAar: Configuration by configurations.creating {
+    isTransitive = false
+}
+
+dependencies {
+    val pdfbox = libs.pdfbox.android.get()
+    pdfboxAar("${pdfbox.module}:${pdfbox.versionConstraint.requiredVersion}@aar")
+}
+
+val extractPdfboxTestAssets by tasks.registering(Sync::class) {
+    from({ zipTree(pdfboxAar.singleFile) }) {
+        include("assets/**")
+        eachFile { path = path.removePrefix("assets/") }
+    }
+    includeEmptyDirs = false
+    into(layout.buildDirectory.dir("pdfbox-test-assets"))
+}
+
+tasks.withType<Test>().configureEach {
+    dependsOn(extractPdfboxTestAssets)
+    classpath += files(extractPdfboxTestAssets.map { it.destinationDir })
 }
