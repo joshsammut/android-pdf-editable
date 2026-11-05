@@ -101,16 +101,21 @@ dependencies {
     pdfboxAar("${pdfbox.module}:${pdfbox.versionConstraint.requiredVersion}@aar")
 }
 
+val pdfboxTestAssetsDir = layout.buildDirectory.dir("pdfbox-test-assets")
+
 val extractPdfboxTestAssets by tasks.registering(Sync::class) {
     from({ zipTree(pdfboxAar.singleFile) }) {
         include("assets/**")
         eachFile { path = path.removePrefix("assets/") }
     }
     includeEmptyDirs = false
-    into(layout.buildDirectory.dir("pdfbox-test-assets"))
+    into(pdfboxTestAssetsDir)
 }
 
-tasks.withType<Test>().configureEach {
+// Feed the files in as unit-test Java resources; AGP copies those onto the test classpath.
+// (Appending to Test.classpath directly does not work: AGP overwrites it.)
+android.sourceSets.getByName("test").resources.srcDir(pdfboxTestAssetsDir)
+
+tasks.matching { it.name.endsWith("UnitTestJavaRes") }.configureEach {
     dependsOn(extractPdfboxTestAssets)
-    classpath += files(extractPdfboxTestAssets.map { it.destinationDir })
 }
